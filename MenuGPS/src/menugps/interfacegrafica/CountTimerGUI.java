@@ -13,17 +13,7 @@ Author: João Pinho
 Copyright notice:
    1. This class will receive the information about the time used
    2. Another aspect is the interface. This class will create a user interface
- 
 
------------------------
-Classname: CountTimer
-Version Information: v1
-Date: 02/12/15 - 17:30
-Author: João Pinho
-Copyright notice:
-   1. This class will be Responsible for the time while the program already
-configurated and in execution.
-   2.if the user press "start"/"Pause"/"Reset" button, this class will deal with it.
 */
 
 
@@ -56,9 +46,8 @@ public class CountTimerGUI implements ActionListener {
     }
     
     /*
-    
-    Posiciona os elementos no ecrã
-    
+    Comment: Will position the buttons on screen
+   
     */
     private void GUI() {
         frame = new JFrame();
@@ -110,23 +99,30 @@ public class CountTimerGUI implements ActionListener {
 
     }
 
+    /*
+    Comment: This method will add text in Label
+    */
     private void setTimerText(String sTime) {
         timeLabel.setText(sTime);
     }
 
+    /*
+      Comment: This method will add background to label with time
+    */
     private void setTimerColor(Color sColor) {
         timeLabel.setForeground(sColor);
     }
 
+    /*
+    Comment: This method will deal with button action
+    */
     @Override
     public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
 
         JButton btn = (JButton) e.getSource();
 
-        if (btn.equals(greenBtn)) {
-            setTimerColor(Color.GREEN.darker());
-        } else if (btn.equals(redBtn)) {
+        if (btn.equals(redBtn)) {
             setTimerColor(Color.RED);
         } else if (btn.equals(startBtn)) {
             cntd.start();
@@ -134,12 +130,21 @@ public class CountTimerGUI implements ActionListener {
             cntd.pause();
         } else if (btn.equals(resumeBtn)) {
             cntd.resume();
-        } //else if (btn.equals(stopBtn))    { cntd.stop(); }
-        else if (btn.equals(resetBtn)) {
-            cntd.reset();
-        }
+        } 
     }
+/*
+    
+Classname: CountTimer
+Version Information: v1
+Date: 02/12/15 - 17:30
+Author: João Pinho
+Copyright notice:
+   1. This class will be Responsible for the time while the program already
+configurated and in execution.
+   2.if the user press "start"/"Pause"/"Reset" button, this class will deal with it.
+*/
 
+    
     private class CountTimer implements ActionListener {
 
         private static final int ONE_SECOND = 1000;
@@ -162,6 +167,11 @@ public class CountTimerGUI implements ActionListener {
             }
         }
 
+        /*
+        Comment: This method will be used when the user press Button "Start"
+        After the used call this method, the time will be started and the rest of the button will be
+        configurated.
+        */
         public void start() {
             count = tempo;
             isTimerActive = true;
@@ -172,6 +182,9 @@ public class CountTimerGUI implements ActionListener {
             resetBtn.setEnabled(true);
         }
 
+        /*
+        Comment: This method will start the time again and reconfigurate the buttons
+        */
         public void resume() {
             isTimerActive = true;
             tmr.restart();
@@ -184,6 +197,12 @@ public class CountTimerGUI implements ActionListener {
         /*public void stop() {
          tmr.stop();
          }*/
+        
+        
+        /*
+        
+        Coloca o tempo em pausa e altera as propriedades dos botões de configuração
+        */
         public void pause() {
             isTimerActive = false;
             startBtn.setEnabled(false);
@@ -191,7 +210,7 @@ public class CountTimerGUI implements ActionListener {
             resumeBtn.setEnabled(true);
             resetBtn.setEnabled(true);
         }
-
+        /*
         public void reset() {
             count = 0;
             isTimerActive = true;
@@ -202,10 +221,14 @@ public class CountTimerGUI implements ActionListener {
             resumeBtn.setEnabled(false);
             pauseBtn.setEnabled(false);
             resetBtn.setEnabled(false);
-        }
+        }*/
 
     }
 
+    /*
+    Comment: This method will format the time to string and will be used on
+    label time
+    */
     private String TimeFormat(int count) {
 
         int hours = count / 3600;
