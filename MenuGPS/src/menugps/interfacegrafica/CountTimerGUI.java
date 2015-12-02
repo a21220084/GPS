@@ -200,8 +200,8 @@ configurated and in execution.
         
         
         /*
-        
-        Coloca o tempo em pausa e altera as propriedades dos botões de configuração
+        Comment: This method will put the time in pause and reconfigurate the buttons
+     
         */
         public void pause() {
             isTimerActive = false;
