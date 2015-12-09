@@ -1,4 +1,4 @@
-package menugps.InterfaceGrafico;
+package menugps.interfacegrafica;
 
 import java.awt.Color;
 import java.awt.Container;

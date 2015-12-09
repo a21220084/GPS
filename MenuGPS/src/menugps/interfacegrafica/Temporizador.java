@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package menugps.InterfaceGrafico;
+package menugps.interfacegrafica;
 
 import java.awt.event.KeyEvent;
 import menugps.VariaveisGlobais;

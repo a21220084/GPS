@@ -1,13 +1,13 @@
 package menugps;
 
-import menugps.InterfaceGrafico.FrameProGest;
-import menugps.InterfaceGrafico.MenuInicialProGest;
+import menugps.interfacegrafica.FrameProGest;
+import menugps.interfacegrafica.MenuInicialProGest;
 
 public class MenuGPS {
 
     public static void main(String[] args) {
         //wefwer
-        menugps.InterfaceGrafico.MenuInicialProGest iu = new MenuInicialProGest();
+        menugps.interfacegrafica.MenuInicialProGest iu = new MenuInicialProGest();
     }
     
 }
