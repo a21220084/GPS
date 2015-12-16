@@ -5,22 +5,20 @@
  */
 package menugps.interfacegrafica;
 
-import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 import menugps.VariaveisGlobais;
+import static sun.lwawt.macosx.CWrapper.NSView.frame;
 
 /**
  *
  * @author joaopinho
  */
 public class Temporizador extends javax.swing.JFrame {
-    
-    private String descric;
-    
+
     public Temporizador() {
         initComponents();
         this.setVisible(true);
         this.setLocation(300, 100);
-        descric = "<html>";
     }
 
     /**
@@ -90,14 +88,9 @@ public class Temporizador extends javax.swing.JFrame {
 
         notasProjeto.setColumns(20);
         notasProjeto.setRows(5);
-        notasProjeto.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                notasProjetoKeyPressed(evt);
-            }
-        });
         jScrollPane1.setViewportView(notasProjeto);
 
-        jLabel6.setText("Notas:");
+        jLabel6.setText("Descrição:");
 
         jButton1.setText("Confirmar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -107,12 +100,6 @@ public class Temporizador extends javax.swing.JFrame {
         });
 
         jLabel7.setText("Titulo do projeto:");
-
-        tituloProjeto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tituloProjetoActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -196,30 +183,51 @@ public class Temporizador extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CountTimerGUI(Integer.parseInt(textHoras.getText()), Integer.parseInt(textMinutos.getText()), Integer.parseInt(textSeg.getText()));
+        boolean inteiros = true;
+        String erro = "";
+
+        try {
+            Integer.parseInt(textHoras.getText());
+            Integer.parseInt(textMinutos.getText());
+            Integer.parseInt(textSeg.getText());
+
+            if (Integer.parseInt(textMinutos.getText()) > 59 || Integer.parseInt(textMinutos.getText()) < 0) {
+                inteiros = false;
+                erro = "Minutos tem de estar entre 0 e 59";
             }
-        });
-
-        VariaveisGlobais.notas.setTitulo(tituloProjeto.getText());
-        VariaveisGlobais.notas.setDescricao(notasProjeto.getText());
-
-        Notas n = new Notas();
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void tituloProjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tituloProjetoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tituloProjetoActionPerformed
-
-    private void notasProjetoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_notasProjetoKeyPressed
-        // TODO add your handling code here:
-        int key = evt.getKeyCode();
-        if (key == KeyEvent.VK_ENTER) {
-            descric = notasProjeto.getText() + "<br/>";
+            if (Integer.parseInt(textSeg.getText()) > 59 || Integer.parseInt(textMinutos.getText()) < 0) {
+                inteiros = false;
+                erro = "Segundos tem de estar entre 0 e 59";
+            }
+            if(tituloProjeto.getText().isEmpty()){
+                inteiros = false;
+                erro = "Precisa de inserir um título";
+            }
+            if(notasProjeto.getText().isEmpty()){
+                inteiros = false;
+                erro = "Precisa de inserir uma descrição";
+            }
+        } catch (NumberFormatException e) {
+            inteiros = false;
+            erro = "Horas, Minutos e Segundos têm de ser numeros inteiros!";
         }
-        System.out.println("\ns = " + descric + "\n");
-    }//GEN-LAST:event_notasProjetoKeyPressed
+
+        if (inteiros == true) {
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    new CountTimerGUI(Integer.parseInt(textHoras.getText()), Integer.parseInt(textMinutos.getText()), Integer.parseInt(textSeg.getText()));
+                }
+            });
+
+            VariaveisGlobais.notas.setTitulo(tituloProjeto.getText());
+            VariaveisGlobais.notas.setDescricao(notasProjeto.getText());
+
+            Notas n = new Notas();
+            this.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(this, erro, "Dados Inválidos", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
